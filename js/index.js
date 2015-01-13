@@ -10,11 +10,15 @@ function checkConnection() {
     states[Connection.CELL]     = 'Cell generic connection'; 
     states[Connection.NONE]     = 'No network connection'; 
 	
+	alert('Connection type: ' + states[networkState]); 
+	
 	
 
 } 
 
 var networkState; 
+
+
 
 var app = { 
     initialize: function() { 
@@ -26,7 +30,7 @@ var app = {
     onDeviceReady: function() { 
         networkState = navigator.connection.type; 
         checkConnection(); 
-		alert(networkState);
+
 		
 		$(document).ready(function(e) {   
 							  $("div:jqmData(role='panel')").css('margin-top',  ($("div:jqmData(role='header')").height()));   
