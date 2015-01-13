@@ -102,7 +102,7 @@
         var datosUsuario = $("#nombredeusuario").val()
         var datosPassword = $("#clave").val()
         
-        archivoValidacion = "http://mxxiv.com.ar/aqm/login.php?"
+        archivoValidacion = "http://mxxiv.com.ar/aqm/login.php?jsoncallback=?"
     
         $.getJSON( archivoValidacion, { usuario:datosUsuario ,password:datosPassword})
         .done(function(respuestaServer) {
