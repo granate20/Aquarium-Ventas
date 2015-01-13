@@ -9,6 +9,8 @@ function checkConnection() {
     states[Connection.CELL_4G]  = 'Cell 4G connection'; 
     states[Connection.CELL]     = 'Cell generic connection'; 
     states[Connection.NONE]     = 'No network connection'; 
+	
+	
 
 } 
 
@@ -24,7 +26,7 @@ var app = {
     onDeviceReady: function() { 
         networkState = navigator.connection.type; 
         checkConnection(); 
-		if(networkState=='No network connection') alert("NO HAY CONEXION A INTERNET");
+		alert(networkState);
 		
 		$(document).ready(function(e) {   
 							  $("div:jqmData(role='panel')").css('margin-top',  ($("div:jqmData(role='header')").height()));   
