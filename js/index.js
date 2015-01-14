@@ -18,6 +18,8 @@ function checkConnection() {
 
 var networkState; 
 
+
+		var db;
 //GENERA LOS ELEMENTOS DEL FORMULARIO
 function connect() 
 			{ 
@@ -55,10 +57,10 @@ var app = {
     onDeviceReady: function() { 
         networkState = navigator.connection.type; 
         
-		var db = window.sqlitePlugin.openDatabase({name: "DB", bgType: 1});
 		
 		checkConnection(); 
-		
+		db = window.sqlitePlugin.openDatabase({name: "DB", bgType: 1});
+
 		db.transaction(function(tx) {
 			tx.executeSql('CREATE TABLE IF NOT EXISTS test_table (pk_usuario integer primary key, usuario text, acceso integer)')
 					
