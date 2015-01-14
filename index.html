@@ -96,7 +96,40 @@
         <div data-role="content">	
             <h2> Bienvenido a la aplicacion </h2>
             <h3> Su usuario y password son válidos</h3>
+            
+            
+            <div> 
+            <div><center><b>Bikes or Cars</b></center> 
+            <center><input onclick="connect(this.value)" type="button" value="cars" /></center> 
+            <center><input onclick="connect(this.value)" type="button" value="bikes" /></center> 
+            <center><b>Results</b></center> 
+            <ul id="result"></ul></div> 
+            </div>
+            
+            
         </div>
+        
+        
+       <script charset="utf−8" type="text/javascript"> 
+		function connect(e) 
+		{ 
+		var term= {button:e}; 
+		$.ajax({ 
+		url:'http://mxxiv.com.ar/aqm/reply.php?jsoncallback=?', 
+		type:'POST', 
+		data:term, 
+		dataType:'json', 
+		error:function(jqXHR,text_status,strError){ 
+		alert("no connection");}, 
+		timeout:60000, 
+		success:function(data){ 
+		$("#result").html(""); 
+		for(var i in data){ 
+		$("#result").append("<li>"+data[i]+"</li>"); 
+		} 
+		} 
+		});} 
+		</script>
      
     </div>
      
@@ -120,6 +153,7 @@
               
                 /// si la validacion es correcta, muestra la pantalla "home"
                 $.mobile.changePage("#home")
+				
               
             }else{
               

@@ -9,8 +9,8 @@ function checkConnection() {
     states[Connection.CELL_4G]  = 'Cell 4G connection'; 
     states[Connection.CELL]     = 'Cell generic connection'; 
     states[Connection.NONE]     = 'No network connection'; 
-	
-	alert('Connection type: ' + states[networkState]); 
+	if(states[networkState]=='No network connection')
+	alert("Este dispositivo no tiene conexión"); 
 	
 	
 
