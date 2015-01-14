@@ -65,7 +65,14 @@ var app = {
       db.transaction(function(tx) {
         tx.executeSql('CREATE TABLE IF NOT EXISTS test_table (id integer primary key, data text, data_num integer)');
 
-        tx.executeSql("select count(id) as cnt from test_table;", [],alert(res.rows.item(0).cnt), function(e) {
+        tx.executeSql("select count(id) as cnt from test_table;", [],
+				function prueba()
+				{
+					if(res.rows.item(0).cnt>0) $.mobile.changePage("#home");
+					alert(res.rows.item(0).cnt)
+					
+					}
+				, function(e) {
           alert("ERROR: " + e.message);
         });
       });
