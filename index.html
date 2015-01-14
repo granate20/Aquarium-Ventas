@@ -75,12 +75,12 @@
 		<form id="formulario" >
       
       			<label> Usuario </label>
-      			<input type="text" id="nombredeusuario" name="nombredeusuario">
+      			<input type="text" style="height:50px" id="nombredeusuario" name="nombredeusuario">
       
       			<label> Password </label>
-     			<input type="password" id="clave" name="clave" >
+     			<input type="password" style="height:50px"  id="clave" name="clave" >
  
-      			<input type="submit" value="Login" id="botonLogin">
+      			<input type="submit" style="height:50px" value="Login" id="botonLogin">
       
     		</form>		
 	</div>
@@ -92,36 +92,23 @@
         <div data-role="header">
             <h1>Bienvenido</h1>
         </div>
-     
-        <div data-role="content">	
-            <h2> Bienvenido a la aplicacion </h2>
-            <h3> Su usuario y password son válidos</h3>
-        </div>
         
-
-        <center><input onclick="connect(this.value)" type="button" value="cars" /></center> 
-
         <form><input id="filter-for-listview" data-type="search" placeholder="Buscar">
         </form>
     	 <ul data-role="listview" id="result" data-inset="true" data-filter="true" data-input="#filter-for-listview">
-            <li><a href="#">Acura</a></li>
-            <li><a href="#">Audi</a></li>
-            <li><a href="#">BMW</a></li>
-            <li><a href="#">Cadillac</a></li>
-            <li><a href="#">Ferrari</a></li>
+
         </ul>
          
         </div>
         
         
         <script charset="utf−8" type="text/javascript"> 
-			function connect(e) 
+			function connect() 
 			{ 
-			var term= {button:e}; 
 			$.ajax({ 
 			url:'http://mxxiv.com.ar/aqm/reply.php?jsoncallback=?', 
 			type:'POST', 
-			data:term, 
+			data:{lista_pk:1}, 
 			dataType:'json', 
 			error:function(jqXHR,text_status,strError){ 
 			alert("Sin Conexión");}, 
@@ -132,7 +119,7 @@
 			
 			for(var i in data){ 
 
-				$("#result").append('<li><a href="" class="ui-btn ui-btn-icon-right ui-icon-carat-r">'+data[i].producto+' $'+data[i].precio_lista+'</a></li>');
+				$("#result").append('<li><a href="" style="height:50px" class="ui-btn ui-btn-icon-right ui-icon-carat-r">'+data[i].producto+' $'+data[i].precio_lista+'</a></li>');
 				
 			} 
 
@@ -160,7 +147,8 @@
             if(respuestaServer.validacion == "ok"){
               
                 /// si la validacion es correcta, muestra la pantalla "home"
-                $.mobile.changePage("#home")
+                $.mobile.changePage("#home");
+				connect();
               
             }else{
               
