@@ -68,9 +68,11 @@ var app = {
 		
 		 db.transaction(function(tx) {
             tx.executeSql("select count(pk_usuario) as cnt from test_table;", [], function(tx, res) {
-              if(res.rows.length>0)
+              if(res.rows.item(0).cnt>0)
+			  {
 			    $.mobile.changePage("#home");
-				connect(); 
+				connect();
+			  }
             });
 			
 		})
