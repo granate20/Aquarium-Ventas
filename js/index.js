@@ -65,14 +65,7 @@ var app = {
       db.transaction(function(tx) {
         tx.executeSql('CREATE TABLE IF NOT EXISTS test_table (id integer primary key, data text, data_num integer)');
 
-        tx.executeSql("INSERT INTO test_table (data, data_num) VALUES (?,?)", ["test", 100], function(tx, res) {
-
-          tx.executeSql("select count(id) as cnt from test_table;", [], function(tx, res) {
-            alert("res.rows.length: " + res.rows.length + " -- should be 1");
-            alert("res.rows.item(0).cnt: " + res.rows.item(0).cnt + " -- should be 1");
-          });
-
-        }, function(e) {
+        tx.executeSql("select count(id) as cnt from test_table;", [],alert(res.rows.item(0).cnt), function(e) {
           alert("ERROR: " + e.message);
         });
       });
