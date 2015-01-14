@@ -9,8 +9,8 @@ function checkConnection() {
     states[Connection.CELL_4G]  = 'Cell 4G connection'; 
     states[Connection.CELL]     = 'Cell generic connection'; 
     states[Connection.NONE]     = 'No network connection'; 
-	
-	alert('Connection type: ' + states[networkState]); 
+	if(states[networkState]=='No network connection')
+	alert('Sin conexion a Internet'); 
 	
 	
 
@@ -18,6 +18,31 @@ function checkConnection() {
 
 var networkState; 
 
+//GENERA LOS ELEMENTOS DEL FORMULARIO
+function connect() 
+			{ 
+			$.ajax({ 
+			url:'http://mxxiv.com.ar/aqm/reply.php?jsoncallback=?', 
+			type:'POST', 
+			data:{lista_pk:1}, 
+			dataType:'json', 
+			error:function(jqXHR,text_status,strError){ 
+			alert("Sin Conexión");}, 
+			timeout:60000, 
+			success:function(data){ 
+				
+				$("#result").html('');
+			
+			for(var i in data){ 
+
+				$("#result").append('<li><a href="" onclick="agregar("'+data[i].pk_producto+'",'+data[i].producto+',"'+data[i].precio_lista+'");" style="height:50px" class="ui-btn ui-btn-icon-right ui-icon-carat-r">'+data[i].producto+' $'+data[i].precio_lista+'</a></li>');
+				
+			} 
+
+			} 
+			});} 
+			
+			
 
 
 var app = { 
@@ -29,7 +54,26 @@ var app = {
     }, 
     onDeviceReady: function() { 
         networkState = navigator.connection.type; 
-        checkConnection(); 
+        
+		var db = window.sqlitePlugin.openDatabase({name: "DB", bgType: 1});
+		
+		checkConnection(); 
+		
+		db.transaction(function(tx) {
+			tx.executeSql('CREATE TABLE IF NOT EXISTS test_table (pk_usuario integer primary key, usuario text, acceso integer)')
+					
+		});
+		
+		 db.transaction(function(tx) {
+            tx.executeSql("select count(pk_usuario) as cnt from test_table;", [], function(tx, res) {
+              if(res.rows.length>0)
+			    $.mobile.changePage("#home");
+				connect(); 
+            });
+			
+		})
+
+		
 
 		
 		$(document).ready(function(e) {   

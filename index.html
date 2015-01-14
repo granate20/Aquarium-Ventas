@@ -91,6 +91,10 @@
      
         <div data-role="header">
             <h1>Bienvenido</h1>
+            
+            <ul data-role="listview" id="carrito">
+
+       		</ul>
         </div>
         
         <form><input id="filter-for-listview" data-type="search" placeholder="Buscar">
@@ -102,30 +106,7 @@
         </div>
         
         
-        <script charset="utf−8" type="text/javascript"> 
-			function connect() 
-			{ 
-			$.ajax({ 
-			url:'http://mxxiv.com.ar/aqm/reply.php?jsoncallback=?', 
-			type:'POST', 
-			data:{lista_pk:1}, 
-			dataType:'json', 
-			error:function(jqXHR,text_status,strError){ 
-			alert("Sin Conexión");}, 
-			timeout:60000, 
-			success:function(data){ 
-				
-				$("#result").html('');
-			
-			for(var i in data){ 
-
-				$("#result").append('<li><a href="" style="height:50px" class="ui-btn ui-btn-icon-right ui-icon-carat-r">'+data[i].producto+' $'+data[i].precio_lista+'</a></li>');
-				
-			} 
-
-			} 
-			});} 
-		</script>
+  
     </div>
      
     <script>
@@ -147,6 +128,13 @@
             if(respuestaServer.validacion == "ok"){
               
                 /// si la validacion es correcta, muestra la pantalla "home"
+				
+				db.transaction(function(tx) {
+					tx.executeSql('insert into test_table (pk_usuario,usuario,acceso) values ('+respuestaServer.pk_usuario+','+respuestaServer.usuario+','+respuestaServer.acceso+')')
+							
+				});
+
+
                 $.mobile.changePage("#home");
 				connect();
               
