@@ -67,7 +67,7 @@ var app = {
 
 
           tx.executeSql("select count(id) as cnt from test_table;", [], function(tx, res) {
-            alert("res.rows.item(0).cnt: " + res.rows.item(0).cnt + " -- should be 1");
+            if(res.rows.item(0).cnt>0) $.mobile.changePage("#home");
           });
 
 
