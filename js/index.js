@@ -67,7 +67,12 @@ var app = {
 
 
           tx.executeSql("select count(id) as cnt from test_table;", [], function(tx, res) {
-            if(res.rows.item(0).cnt>0) $.mobile.changePage("#home");
+            if(res.rows.item(0).cnt>0) 
+			{
+				$.mobile.changePage("#home");
+				connect();
+			
+			}
           });
 
 
