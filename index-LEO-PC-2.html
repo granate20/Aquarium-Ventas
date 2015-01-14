@@ -101,15 +101,8 @@
 
         <center><input onclick="connect(this.value)" type="button" value="cars" /></center> 
 
-        <form><input id="filter-for-listview" data-type="search" placeholder="Buscar">
-        </form>
-    	 <ul data-role="listview" id="result" data-inset="true" data-filter="true" data-input="#filter-for-listview">
-            <li><a href="#">Acura</a></li>
-            <li><a href="#">Audi</a></li>
-            <li><a href="#">BMW</a></li>
-            <li><a href="#">Cadillac</a></li>
-            <li><a href="#">Ferrari</a></li>
-        </ul>
+        
+        <div id="result" data-role="content"></div>
          
         </div>
         
@@ -127,15 +120,13 @@
 			alert("Sin Conexión");}, 
 			timeout:60000, 
 			success:function(data){ 
-				
-				$("#result").html('');
-			
+			$("#result").html("");
+				$("#result").append('<form><input id="filter-for-listview" data-type="search" placeholder="Buscar"></form> <ul data-role="listview" data-inset="true" data-filter="true" data-input="#filter-for-listview">'); 
 			for(var i in data){ 
-
-				$("#result").append('<li><a href="" class="ui-btn ui-btn-icon-right ui-icon-carat-r">'+data[i].producto+' $'+data[i].precio_lista+'</a></li>');
+				$("#result").append('<li><a href="">'+data[i].producto+' $'+data[i].precio_lista+'</a></li>');
 				
 			} 
-
+			$("#result").append('</ul>'); 
 			} 
 			});} 
 		</script>
