@@ -114,14 +114,7 @@
             if(respuestaServer.validacion == "ok"){
               
                 /// si la validacion es correcta, muestra la pantalla "home"
-				
-				db.transaction(function(tx) {
-					tx.executeSql('insert into test_table (pk_usuario,usuario,acceso) values ('+respuestaServer.pk_usuario+','+respuestaServer.usuario+','+respuestaServer.acceso+')')
-							
-				});
-
-
-                $.mobile.changePage("#home");
+				$.mobile.changePage("#home");
 				connect();
               
             }else{
