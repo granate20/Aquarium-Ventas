@@ -33,6 +33,21 @@
         <script src="js/jquery.mobile-1.4.5.min.js"></script>
         
         <title>Ventas Aquarium</title>
+        <style>
+        #abre_panel{ 
+	  position: absolute; 
+	  background-image: url(img/menu_btn.png); 
+	  background-repeat: no-repeat; 
+	  width: 50px; 
+	  height: 20px; 
+	  box-shadow: none; 
+	  background-color: transparent !important; 
+	  border: none; 
+	  left: -5px; 
+	  top: 0; 
+	  margin-top: 6px !important; 
+	} 
+        </style>
 
     </head>
     <body>
@@ -58,7 +73,7 @@
     
 	<div data-role="content">	
     	
-		<form id="formulario" >
+		<form id="formulario" method="post" >
       
       			<label> Usuario </label>
       			<input type="text" style="height:70px;font-size:20px" id="nombredeusuario" name="nombredeusuario">
@@ -74,14 +89,24 @@
     </div>
      
     <div data-role="page" id="home">
-     
-        <div data-role="header">
-            <h1>Bienvenido</h1>
-            
+    
+      <div data-role="header" class="header" data-position="fixed"> 
+        <h1>Bienvenido</h1> 
+        <a href="#panel" id="abre_panel" class="panel-btn"></a> 
+      </div> 
+       
+      <div data-role="panel" id="panel" data-position-fixed="true" data-position="left" data-display="overlay"> 
+        <ul data-role="listview"> 
+          <li data-icon="false"><a href="#" onClick="cerrarsesion();" class="panel_li"  >Cerrar Sesion</a></li> 
+
+        </ul> 
+      </div> 
+    
+      <div data-role="content"> 
+
             <ul data-role="listview" id="carrito">
 
-       		</ul>
-        </div>
+       	
         
         <form><input id="filter-for-listview" data-type="search" placeholder="Buscar">
         </form>
@@ -90,13 +115,18 @@
         </ul>
          
         </div>
+      </div> 
+
+       
         
         
   
     </div>
      
     <script>
-    
+	
+	
+	
     $('#formulario').submit(function() { 
         
          
@@ -104,27 +134,37 @@
         var datosUsuario = $("#nombredeusuario").val()
         var datosPassword = $("#clave").val()
         
-        archivoValidacion = "http://mxxiv.com.ar/aqm/login.php?jsoncallback=?"
+
     
-        $.getJSON( archivoValidacion, { usuario:datosUsuario ,password:datosPassword})
-        .done(function(respuestaServer) {
-            
-			
-            
-            if(respuestaServer.validacion == "ok"){
-              
-                /// si la validacion es correcta, muestra la pantalla "home"
-				$.mobile.changePage("#home");
-				connect();
-              
-            }else{
-              
-              alert("Usuario o contraseña erroneo.");
-            }
-      
-        })
-        return false;
+		$.ajax({ 
+			url:'http://mxxiv.com.ar/aqm/login.php?jsoncallback=?', 
+			type:'POST',
+			contentType: "application/x-www-form-urlencoded", 
+			data:{usuario:datosUsuario,password:datosPassword}, 
+			dataType:'json', 
+			error:function(jqXHR,text_status,strError){ 
+			alert("Sin Conexión");}, 
+			timeout:60000, 
+			success:function(data){ 
+
+					if(data.validacion == "ok"){
+				  
+					/// si la validacion es correcta, muestra la pantalla "home"
+					
+					$.mobile.changePage("#home");
+					connect();
+				  
+				}else{
+				  
+				  alert("Usuario o contraseña erroneo.");
+				}
+	
+				} 
+			});
+	
+
     })
+
         
     </script>
         

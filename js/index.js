@@ -19,6 +19,11 @@ function checkConnection() {
 var networkState; 
 
 
+$(document).ready(function(e) {   
+  $("div:jqmData(role='panel')").css('margin-top',  ($("div:jqmData(role='header')").height()));   
+});
+
+
 		var db;
 //GENERA LOS ELEMENTOS DEL FORMULARIO
 function connect() 
@@ -44,6 +49,29 @@ function connect()
 			} 
 			});} 
 			
+
+function cerrarsesion()
+{
+	
+	
+		
+		var db = window.sqlitePlugin.openDatabase("Database", "1.0", "Demo", -1);
+       
+	   db.transaction(function(tx) {
+        tx.executeSql('delete from test_table');
+
+
+      });
+	   
+	   
+				$.mobile.changePage("#inicio");
+		
+
+
+
+     
+	
+}
 			
 
 
