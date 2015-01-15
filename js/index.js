@@ -19,19 +19,15 @@ function checkConnection() {
 var networkState; 
 
 
-$(document).ready(function(e) {   
-  $("div:jqmData(role='panel')").css('margin-top',  ($("div:jqmData(role='header')").height()));   
-});
-
-
 		var db;
+		var usuario;
 //GENERA LOS ELEMENTOS DEL FORMULARIO
 function connect() 
 			{ 
 			$.ajax({ 
 			url:'http://mxxiv.com.ar/aqm/reply.php?jsoncallback=?', 
 			type:'POST', 
-			data:{lista_pk:1}, 
+			data:{pk_usuario:usuario.pk_usuario}, 
 			dataType:'json', 
 			error:function(jqXHR,text_status,strError){ 
 			alert("Sin Conexión");}, 
@@ -41,38 +37,41 @@ function connect()
 				$("#result").html('');
 			
 			for(var i in data){ 
-
-				$("#result").append('<li><a href="" onclick="agregar("'+data[i].pk_producto+'",'+data[i].producto+',"'+data[i].precio_lista+'");" style="height:50px" class="ui-btn ui-btn-icon-right ui-icon-carat-r">'+data[i].producto+' $'+data[i].precio_lista+'</a></li>');
+			
+				
+				$("#result").append('<li><a href=""  style="height:50px" class="ui-btn ui-btn-icon-right ui-icon-carat-r">'+data[i].nombre+' Tel:'+data[i].telefono+'</a></li>');
 				
 			} 
-
+			
+			
 			} 
 			});} 
 			
+			
+function agregarcliente()
+{
+	
+	  $.mobile.changePage("#cliente");
+	  if(usuario.pk_usuario!=1)
+	  $("#vendedor").val(usuario.pk_usuario);
+	
+	
+	}
+
 
 function cerrarsesion()
 {
-	
-	
-		
-		var db = window.sqlitePlugin.openDatabase("Database", "1.0", "Demo", -1);
-       
-	   db.transaction(function(tx) {
+	var db = window.sqlitePlugin.openDatabase("Database", "1.0", "Demo", -1);
+
+      db.transaction(function(tx) {
         tx.executeSql('delete from test_table');
 
-
       });
-	   
-	   
-				$.mobile.changePage("#inicio");
-		
-
-
-
-     
+	  
+	  $.mobile.changePage("#inicio");
 	
-}
-			
+	
+	}			
 
 
 var app = { 
@@ -83,9 +82,6 @@ var app = {
         document.addEventListener('deviceready', this.onDeviceReady, false); 
     }, 
     onDeviceReady: function() { 
-	
-	document.addEventListener("backbutton", onBackKeyDown, false);  
-	
         networkState = navigator.connection.type; 
         
 		
@@ -101,6 +97,10 @@ var app = {
             if(res.rows.item(0).cnt>0) 
 			{
 				$.mobile.changePage("#home");
+							
+				var page = $('[data-role="page"]:last'); 
+    			page.find('#divcli').hide();
+				
 				connect();
 			
 			}

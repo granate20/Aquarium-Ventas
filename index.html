@@ -86,45 +86,10 @@
       
     		</form>		
 	</div>
-	 
-    </div>
-     
-    <div data-role="page" id="home">
     
-      <div data-role="header" class="header" data-position="fixed"> 
-        <h1>Bienvenido</h1> 
-        <a href="#panel" id="abre_panel" class="panel-btn"></a> 
-      </div> 
-       
-      <div data-role="panel" id="panel" data-position-fixed="true" data-position="left" data-display="overlay"> 
-        <ul data-role="listview"> 
-          <li data-icon="false"><a href="#" onClick="cerrarsesion();" class="panel_li"  >Cerrar Sesion</a></li> 
-
-        </ul> 
-      </div> 
     
-      <div data-role="content"> 
-
-            <ul data-role="listview" id="carrito">
-
-       	
-        
-        <form><input id="filter-for-listview" data-type="search" placeholder="Buscar">
-        </form>
-    	 <ul data-role="listview" id="result" data-inset="true" data-filter="true" data-input="#filter-for-listview">
-
-        </ul>
-         
-        </div>
-      </div> 
-
-       
-        
-        
-  
-    </div>
-     
-    <script>
+    
+     <script>
 	
 	
 	
@@ -153,6 +118,8 @@
 					/// si la validacion es correcta, muestra la pantalla "home"
 					$.mobile.changePage("#home");
 					
+					usuario=data;
+					
 					connect();
 				  
 				}else{
@@ -169,6 +136,167 @@
 
         
     </script>
+	 
+    </div>
+     
+    <div data-role="page" id="home">
+    
+      <div data-role="header" class="header" data-position="fixed"> 
+        <h1><div class="ui-input-btn ui-btn ui-btn-inline">
+                Agregar Cliente
+                <input type="button" onClick="agregarcliente();" data-enhanced="true" value="Enhanced">
+            </div>
+        </h1> 
+            
+        <a href="#panel" id="abre_panel" class="panel-btn"></a> 
+      </div> 
+       
+      <div data-role="panel" id="panel" data-position-fixed="true" data-position="left" data-display="overlay"> 
+        <ul data-role="listview"> 
+          <li data-icon="false"><a href="#" onClick="$.mobile.changePage('#home'); connect();" class="panel_li"  >Agenda</a></li> 
+          <li data-icon="false"><a href="#" onClick="cerrarsesion();" class="panel_li"  >Pedidos Pendientes</a></li> 
+          <li data-icon="false"><a href="#" onClick="cerrarsesion();" class="panel_li"  >Pedidos Terminados</a></li> 
+          <li data-icon="false"><a href="#" onClick="cerrarsesion();" class="panel_li"  >Cerrar Sesion</a></li> 
+
+        </ul> 
+      </div> 
+    
+      <div data-role="content"> 
+               
+                
+       	
+        
+                <form><input id="filter-for-listview" data-type="search" placeholder="Buscar">
+                </form>
+                <ul data-role="listview" data-inset="true" id="result" data-inset="true" data-filter="true" data-input="#filter-for-listview">
+                
+                </ul>
+
+         
+        </div>
+      </div> 
+
+       
+        
+        
+  
+    </div>
+    
+    
+    
+    
+    
+    
+    
+    
+     <div data-role="page" id="cliente">
+    
+      <div data-role="header" class="header" data-position="fixed"> 
+        <h1><div class="ui-input-btn ui-btn ui-btn-inline">
+                Agregar Cliente
+                <input type="button" onClick="agregarcliente();" data-enhanced="true" value="Enhanced">
+            </div>
+        </h1> 
+            
+        <a href="#panel" id="abre_panel" class="panel-btn"></a> 
+      </div> 
+       
+      <div data-role="panel" id="panel" data-position-fixed="true" data-position="left" data-display="overlay"> 
+        <ul data-role="listview"> 
+          <li data-icon="false"><a href="#" onClick="$.mobile.changePage('#home'); connect();" class="panel_li"  >Agenda</a></li> 
+          <li data-icon="false"><a href="#" onClick="cerrarsesion();" class="panel_li"  >Pedidos Pendientes</a></li> 
+          <li data-icon="false"><a href="#" onClick="cerrarsesion();" class="panel_li"  >Pedidos Terminados</a></li> 
+          <li data-icon="false"><a href="#" onClick="cerrarsesion();" class="panel_li"  >Cerrar Sesion</a></li> 
+
+        </ul> 
+      </div> 
+    
+      <div data-role="content"> 
+
+				
+                <form id="formcliente" method="post">
+                        <label> Usuario </label>
+                        <input type="text" style="height:70px;font-size:20px" id="usuario" name="usuario">
+              
+                        <label> Password </label>
+                        <input type="password" style="height:70px; font-size:20px"  id="password" name="password" >
+                        
+                        <label> Nombre </label>                        
+                        <input type="text" style="height:70px;font-size:20px" id="nombre" name="nombre">
+              
+                        <label> Email </label>
+                        <input type="email" style="height:70px; font-size:20px"  id="email" name="email" >
+                        
+                        <label> Telefono </label>
+                        <input type="text" style="height:70px;font-size:20px" id="telefono" name="telefono">
+              
+						<input type="hidden" name="vendedor" id="vendedor">
+                        
+                        <button type="submit" style="height:80px; width:20%; font-size:30px" id="botonLogin"><span class="ui-btn-inner ui-btn-corner-all"><span class="ui-btn-text">Login</span></span></button>
+            
+                </form>
+                
+                
+                     <script>
+	
+	
+	
+    $('#formcliente').submit(function() { 
+        
+         
+        // recolecta los valores que inserto el usuario
+
+
+    
+		$.ajax({ 
+			url:'http://mxxiv.com.ar/aqm/mayorista/addcliente.php?jsoncallback=?', 
+			type:'GET',
+			data:$(this).serialize(), 
+			dataType:'json', 
+			error:function(jqXHR,text_status,strError){ 
+			alert("Sin Conexión");}, 
+			timeout:60000, 
+			success:function(data){ 
+
+	
+					if(data == "ok"){
+				  
+				  	alert("USUARIO AGREGADO CORRECTAMENTE");
+					/// si la validacion es correcta, muestra la pantalla "home"
+					$.mobile.changePage("#home");
+					
+					connect();
+				  
+				}else{
+				  
+				  alert("USUARIO YA EXITENTE, ELIGA OTRO NOMBRE DE USUARIO");
+				}
+	
+				} 
+			});
+	
+
+    })
+
+        
+    </script>
+            
+
+         
+        </div>
+      </div> 
+
+       
+        
+        
+  
+    </div>
+    
+    
+    
+    
+     
+   
         
     </body>
 </html>
