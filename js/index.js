@@ -83,6 +83,9 @@ var app = {
         document.addEventListener('deviceready', this.onDeviceReady, false); 
     }, 
     onDeviceReady: function() { 
+	
+	document.addEventListener("backbutton", onBackKeyDown, false);  
+	
         networkState = navigator.connection.type; 
         
 		
