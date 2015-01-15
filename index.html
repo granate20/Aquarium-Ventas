@@ -73,7 +73,7 @@
     
 	<div data-role="content">	
     	
-		<form id="formulario" >
+		<form id="formulario" method="post" >
       
       			<label> Usuario </label>
       			<input type="text" style="height:70px;font-size:20px" id="nombredeusuario" name="nombredeusuario">
@@ -81,7 +81,8 @@
       			<label> Password </label>
      			<input type="password" style="height:70px; font-size:20px"  id="clave" name="clave" >
  
-      			<input type="submit" style="height:80px; width:20%" value="Login" id="botonLogin">
+      			<button type="submit" style="height:80px; width:20%; font-size:30px" id="botonLogin"><span class="ui-btn-inner ui-btn-corner-all"><span class="ui-btn-text">Login</span></span></button>
+	
       
     		</form>		
 	</div>
@@ -150,7 +151,6 @@
 					if(data.validacion == "ok"){
 				  
 					/// si la validacion es correcta, muestra la pantalla "home"
-					
 					$.mobile.changePage("#home");
 					
 					connect();
@@ -158,6 +158,7 @@
 				}else{
 				  
 				  alert("Usuario o contraseña erroneo.");
+				  $.mobile.changePage("#inicio");
 				}
 	
 				} 
