@@ -1,5 +1,63 @@
-// JavaScript Document
-function checkConnection() { 
+/*
+ * Licensed to the Apache Software Foundation (ASF) under one
+ * or more contributor license agreements.  See the NOTICE file
+ * distributed with this work for additional information
+ * regarding copyright ownership.  The ASF licenses this file
+ * to you under the Apache License, Version 2.0 (the
+ * "License"); you may not use this file except in compliance
+ * with the License.  You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing,
+ * software distributed under the License is distributed on an
+ * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied.  See the License for the
+ * specific language governing permissions and limitations
+ * under the License.
+ */
+var app = {
+    // Application Constructor
+    initialize: function() {
+        this.bindEvents();
+    },
+    // Bind Event Listeners
+    //
+    // Bind any events that are required on startup. Common events are:
+    // 'load', 'deviceready', 'offline', and 'online'.
+    bindEvents: function() {
+        document.addEventListener('deviceready', this.onDeviceReady, false);
+    },
+    // deviceready Event Handler
+    //
+    // The scope of 'this' is the event. In order to call the 'receivedEvent'
+    // function, we must explicitly call 'app.receivedEvent(...);'
+    onDeviceReady: function() {
+        app.receivedEvent('deviceready');
+		
+			
+    },
+    // Update DOM on a Received Event
+    receivedEvent: function(id) {
+        var parentElement = document.getElementById(id);
+        var listeningElement = parentElement.querySelector('.listening');
+        var receivedElement = parentElement.querySelector('.received');
+
+        listeningElement.setAttribute('style', 'display:none;');
+        receivedElement.setAttribute('style', 'display:block;');
+
+        console.log('Received Event: ' + id);
+    }
+};
+
+ function hayInternet() { 
+ 
+ 
+var networkState; 
+
+if (typeof (navigator.connection) != "undefined") {
+networkState = navigator.connection.type; 
+ 
     var states = {}; 
     states[Connection.UNKNOWN]  = 'Unknown connection'; 
     states[Connection.ETHERNET] = 'Ethernet connection'; 
@@ -9,135 +67,306 @@ function checkConnection() {
     states[Connection.CELL_4G]  = 'Cell 4G connection'; 
     states[Connection.CELL]     = 'Cell generic connection'; 
     states[Connection.NONE]     = 'No network connection'; 
+	
 	if(states[networkState]=='No network connection')
-	alert('Sin conexion a Internet'); 
+	return false;
 	
+	return true;
 	
 
-} 
+}
 
-var networkState; 
+	//solo para los navegadores (prueba)
+	return true;
+	
 
+} //FIN FUNCION INTERNET
 
-		var db;
-		var usuario;
-//GENERA LOS ELEMENTOS DEL FORMULARIO
-function connect() 
-			{ 
-			$.ajax({ 
-			url:'http://mxxiv.com.ar/aqm/reply.php?jsoncallback=?', 
-			type:'POST', 
-			data:{pk_usuario:usuario.pk_usuario}, 
-			dataType:'json', 
-			error:function(jqXHR,text_status,strError){ 
-			alert("Sin Conexión");}, 
-			timeout:60000, 
-			success:function(data){ 
-				
-				$("#result").html('');
-			
-			for(var i in data){ 
-			
-				
-				$("#result").append('<li><a href=""  style="height:50px" class="ui-btn ui-btn-icon-right ui-icon-carat-r">'+data[i].nombre+' Tel:'+data[i].telefono+'</a></li>');
-				
-			} 
-			
-			
-			} 
-			});} 
+//FUNCION DE CARGADO
+$( document ).on( "click", ".show-page-loading-msg", function() {
+    var $this = $( this ),
+        theme = $this.jqmData( "theme" ) || $.mobile.loader.prototype.options.theme,
+        msgText = $this.jqmData( "msgtext" ) || $.mobile.loader.prototype.options.text,
+        textVisible = $this.jqmData( "textvisible" ) || $.mobile.loader.prototype.options.textVisible,
+        textonly = !!$this.jqmData( "textonly" );
+        html = $this.jqmData( "html" ) || "";
+    $.mobile.loading( "show", {
+            text: msgText,
+            textVisible: textVisible,
+            theme: theme,
+            textonly: textonly,
+            html: html
+    });
+})
 
+//FIN FUNCION CARGADO
 
-function verpendientes() 
-			{ 
-			$.ajax({ 
-			url:'http://mxxiv.com.ar/aqm/pendientes.php?jsoncallback=?', 
-			type:'POST', 
-			data:{pk_usuario:usuario.pk_usuario}, 
-			dataType:'json', 
-			error:function(jqXHR,text_status,strError){ 
-			alert("Sin Conexión");}, 
-			timeout:60000, 
-			success:function(data){ 
-				
-				$("#result").html('');
-			
-			for(var i in data){ 
-			
-				
-				$("#result").append('<li><a href=""  style="height:50px" class="ui-btn ui-btn-icon-right ui-icon-carat-r">'+data[i].nombre+' Tel:'+data[i].telefono+'</a></li>');
-				
-			} 
-			
-			
-			} 
-			});} 
+//FUNCION CARGAR AGENDA
 
-
-			
-			
-function agregarcliente()
+function cargarAgenda()
 {
 	
-	  $.mobile.changePage("#cliente");
-	  if(usuario.pk_usuario!=1)
-	  $("#vendedor").val(usuario.pk_usuario);
+if(localStorage.getItem("seccion")!="agenda")
+{
+if (hayInternet()) {
+$.ajax({
+url: 'http://aquarium.com.ar/agencias/reply.php?jsoncallback=?',
+type: 'GET',
+data: {
+pk_usuario: localStorage.getItem("pk_usuario")
+},
+dataType: 'json',
+error: function(jqXHR, text_status, strError) {
+alert("Sin Conexión");
+
+    $.mobile.loading( "hide" );
+},
+timeout: 60000,
+success: function(data) {
 	
-	
+		$('#contenidoagenda').html('');
+	for(i in data)
+	{
+		$('#contenidoagenda').append('<li><a href="tel:'+data[i].telefono+'"><strong>'+data[i].nombre+'</strong> | '+data[i].email+' | '+data[i].telefono+'</a></li>');	
 	}
 
 
-function cerrarsesion()
+$('#agenda').trigger("create");
+$('#agenda').trigger("refresh");
+
+$.mobile.changePage("#agenda");
+localStorage.setItem('seccion',"agenda");
+
+
+
+    $.mobile.loading( "hide" );
+
+}
+});
+} else alert("No hay conexión de internet.");
+
+}
+
+}
+
+// FIN FUNCION CARGAR AGENDA
+
+//FUNCION CARGAR procesados
+
+function cargarPendientes()
 {
-	var db = window.sqlitePlugin.openDatabase("Database", "1.0", "Demo", -1);
-
-      db.transaction(function(tx) {
-        tx.executeSql('delete from test_table');
-
-      });
-	  
-	  $.mobile.changePage("#inicio");
 	
+if(localStorage.getItem("seccion")!="pendientes")
+{
+if (hayInternet()) {
+$.ajax({
+url: 'http://aquarium.com.ar/agencias/replypedidos.php?jsoncallback=?',
+type: 'GET',
+data: {
+pk_usuario: localStorage.getItem("pk_usuario"),
+estado:1
+},
+dataType: 'json',
+error: function(jqXHR, text_status, strError) {
+alert("Sin Conexión");
+
+    $.mobile.loading( "hide" );
+},
+timeout: 60000,
+success: function(data) {
 	
-	}			
-
-
-var app = { 
-    initialize: function() { 
-        this.bindEvents(); 
-    }, 
-    bindEvents: function() { 
-        document.addEventListener('deviceready', this.onDeviceReady, false); 
-    }, 
-    onDeviceReady: function() { 
-        networkState = navigator.connection.type; 
-        
+		pedido=0;
+		suma=0;
 		
-		checkConnection(); 
+			$('#contenidopendientes').html('');
+		if(data!=null)
+		{
 		
-		var db = window.sqlitePlugin.openDatabase("Database", "1.0", "Demo", -1);
-
-      db.transaction(function(tx) {
-        tx.executeSql('CREATE TABLE IF NOT EXISTS test_table (id integer primary key, data text, data_num integer)');
-
-
-          tx.executeSql("select id as cnt from test_table;", [], function(tx, res) {
-            if(res.rows.item(0).cnt>0) 
+	for(i in data)
+	{
+		if(data[i].pk_pedido!=pedido)
+		{
+			if(pedido!=0)
 			{
-				$.mobile.changePage("#home");
-				
-				usuario.pk_usuario=res.rows.item(0).cnt;
-							
-				var page = $('[data-role="page"]:last'); 
-    			page.find('#divcli').hide();
-				
-				connect();
-			
+				$('#contenidopendientes').append('<div class="ui-block-a"><h5>Observaciones: '+descripcion+'</h5></div> <div class="ui-block-a"><h4>TOTAL: $'+suma+'</h4></div> <div class="ui-block-a"><input type="button" id="rechazar'+pk_pedido+'" onclick="cambiarestado('+pk_pedido+',5)" data-icon="forbidden" value="Rechazar"></div>                    <div class="ui-block-b"><input type="button" id="aprobar'+pk_pedido+'" onclick="cambiarestado('+pk_pedido+',2)" data-icon="plus" value="Aprobar"></div>                    <div class="ui-block-a"><input type="button" data-icon="delete" id="cancelar'+pk_pedido+'" onclick="cambiarestado('+pk_pedido+',4)" value="Cancelar"></div>                    <div class="ui-block-b"><input type="button" id="pagado'+pk_pedido+'" data-icon="check" value="Pagado" onclick="cambiarestado('+pk_pedido+',3)"></div>                    ');
+	
 			}
-          });
-
-
-      });
+			
+			$('#contenidopendientes').append('<div class="ui-block-a" ><h4>NRO: '+data[i].pk_pedido+'</h4></div>                    <div class="ui-block-b"><h4>Cliente: '+data[i].nombre+'</h4></div>                    <div class="ui-block-d"><h4>Fecha : '+data[i].fecha+'</h4></div>');
+			
+			$('#contenidopendientes').append(' <div class="ui-block-a" ><div class="ui-bar ui-bar-a"><h5>CANTIDAD</h5></div></div>                    <div class="ui-block-b"><div class="ui-bar ui-bar-a"><h5>ITEM</h5></div></div>                    <div class="ui-block-c"><div class="ui-bar ui-bar-a"><h5>$ x U.</h5></div></div>                    <div class="ui-block-d"><div class="ui-bar ui-bar-a"><h5>SUBTOTAL</h5></div></div>');
+			
+			pedido=data[i].pk_pedido;
+			suma=0;
+			
+		}
 		
-    } 
-}; 
+			suma=suma+(data[i].cantidad*data[i].precio_unidad);
+		
+		$('#contenidopendientes').append(' <div class="ui-block-a" ><div class="ui-bar ui-bar-a"><h5>'+data[i].cantidad+'</h5></div></div>                    <div class="ui-block-b"><div class="ui-bar ui-bar-a"><h5>'+data[i].detalle+'</h5></div></div>                    <div class="ui-block-c"><div class="ui-bar ui-bar-a"><h5>$'+data[i].precio_unidad+' x U.</h5></div></div>                    <div class="ui-block-d"><div class="ui-bar ui-bar-a"><h5>$'+(data[i].cantidad*data[i].precio_unidad)+'</h5></div></div>');
+		
+		descripcion=data[i].descripcion;
+		pk_pedido=data[i].pk_pedido;
+		
+		
+	}
+	//2=>'Aprobado',4=>'Cancelado',1=>'Pendiente',3=>'Pago',5=>'Rechazado'
+	$('#contenidopendientes').append('<div class="ui-block-a"><h5>Observaciones: '+descripcion+'</h5></div> <div class="ui-block-a"><h4>TOTAL: $'+suma+'</h4></div> <div class="ui-block-a"><input type="button" id="rechazar'+pk_pedido+'" onclick="cambiarestado('+pk_pedido+',5)" data-icon="forbidden" value="Rechazar"></div>                    <div class="ui-block-b"><input type="button" id="aprobar'+pk_pedido+'" onclick="cambiarestado('+pk_pedido+',2)" data-icon="plus" value="Aprobar"></div>                    <div class="ui-block-a"><input type="button" data-icon="delete" id="cancelar'+pk_pedido+'" onclick="cambiarestado('+pk_pedido+',4)" value="Cancelar"></div>                    <div class="ui-block-b"><input type="button" id="pagado'+pk_pedido+'" data-icon="check" value="Pagado" onclick="cambiarestado('+pk_pedido+',3)"></div>                    ');
+	
+	
+		}
+
+$('#pendientes').trigger("create");
+$('#pendientes').trigger("refresh");
+
+$.mobile.changePage("#pendientes");
+localStorage.setItem('seccion',"pendientes");
+
+
+
+    $.mobile.loading( "hide" );
+
+}
+});
+} else alert("No hay conexión de internet.");
+
+}
+
+}
+
+// FIN FUNCION CARGAR PENDIENTES
+
+//FUNCION DE CAMBIAR ESTADO
+
+function cambiarestado(pedido,estado)
+{
+
+//el if lleva hayinternet()
+if (hayInternet()) {
+$.ajax({
+url: 'http://aquarium.com.ar/agencias/replyestado.php?jsoncallback=?',
+type: 'GET',
+data: {
+pedido: pedido,
+estado: estado
+},
+dataType: 'json',
+error: function(jqXHR, text_status, strError) {
+alert("Sin Conexión");
+},
+timeout: 60000,
+success: function(data) {
+
+
+if (data.validacion == "ok") {
+	
+	 $('#rechazar'+pedido).css("background","red");
+	 $('#aprobar'+pedido).css("background","red"); 
+	 $('#cancelar'+pedido).css("background","red");
+	 $('#pagado'+pedido).css("background","red");
+	
+	if(estado==5) $('#rechazar'+pedido).css("background","green");
+	if(estado==2) $('#aprobar'+pedido).css("background","green");
+	if(estado==4) $('#cancelar'+pedido).css("background","green");
+	if(estado==3) $('#pagado'+pedido).css("background","green");
+} 
+
+
+}
+});
+} else alert("Necesita estar conectado a internet para loguearse.");
+
+
+
+	
+}
+
+//FIN FUNCION
+
+
+
+//FUNCION CARGAR procesados
+
+function cargarProcesados()
+{
+	
+if(localStorage.getItem("seccion")!="procesados")
+{
+if (hayInternet()) {
+$.ajax({
+url: 'http://aquarium.com.ar/agencias/replypedidos.php?jsoncallback=?',
+type: 'GET',
+data: {
+pk_usuario: localStorage.getItem("pk_usuario"),
+estado:2
+},
+dataType: 'json',
+error: function(jqXHR, text_status, strError) {
+alert("Sin Conexión");
+
+    $.mobile.loading( "hide" );
+},
+timeout: 60000,
+success: function(data) {
+	
+	
+		pedido=0;
+		suma=0;
+		
+			$('#contenidoprocesados').html('');
+			
+		if(data!=null)
+		{
+	for(i in data)
+	{
+		if(data[i].pk_pedido!=pedido)
+		{
+			if(pedido!=0)
+			{
+				$('#contenidoprocesados').append('<div class="ui-block-a"><h5>Observaciones: '+descripcion+'</h5></div> <div class="ui-block-a"><h4>TOTAL: $'+suma+'</h4></div> ');
+	
+			}
+			
+			$('#contenidoprocesados').append('<div class="ui-block-a" ><h4>NRO: '+data[i].pk_pedido+'</h4></div>                    <div class="ui-block-b"><h4>Cliente: '+data[i].nombre+'</h4></div>                    <div class="ui-block-d"><h4>Fecha : '+data[i].fecha+'</h4></div>');
+			
+			$('#contenidoprocesados').append(' <div class="ui-block-a" ><div class="ui-bar ui-bar-a"><h5>CANTIDAD</h5></div></div>                    <div class="ui-block-b"><div class="ui-bar ui-bar-a"><h5>ITEM</h5></div></div>                    <div class="ui-block-c"><div class="ui-bar ui-bar-a"><h5>$ x U.</h5></div></div>                    <div class="ui-block-d"><div class="ui-bar ui-bar-a"><h5>SUBTOTAL</h5></div></div>');
+			
+			pedido=data[i].pk_pedido;
+			suma=0;
+			
+		}
+		
+			suma=suma+(data[i].cantidad*data[i].precio_unidad);
+		
+		$('#contenidoprocesados').append(' <div class="ui-block-a" ><div class="ui-bar ui-bar-a"><h5>'+data[i].cantidad+'</h5></div></div>                    <div class="ui-block-b"><div class="ui-bar ui-bar-a"><h5>'+data[i].detalle+'</h5></div></div>                    <div class="ui-block-c"><div class="ui-bar ui-bar-a"><h5>$'+data[i].precio_unidad+' x U.</h5></div></div>                    <div class="ui-block-d"><div class="ui-bar ui-bar-a"><h5>$'+(data[i].cantidad*data[i].precio_unidad)+'</h5></div></div>');
+		
+		descripcion=data[i].descripcion;
+		pk_pedido=data[i].pk_pedido;
+		
+		
+	}
+	//2=>'Aprobado',4=>'Cancelado',1=>'Pendiente',3=>'Pago',5=>'Rechazado'
+	$('#contenidoprocesados').append('<div class="ui-block-a"><h5>Observaciones: '+descripcion+'</h5></div> <div class="ui-block-a"><h4>TOTAL: $'+suma+'</h4></div> ');
+	
+		}
+
+
+$('#procesados').trigger("create");
+$('#procesados').trigger("refresh");
+
+$.mobile.changePage("#procesados");
+localStorage.setItem('seccion',"procesados");
+
+
+
+    $.mobile.loading( "hide" );
+
+}
+});
+} else alert("No hay conexión de internet.");
+
+}
+
+}
+
+// FIN FUNCION CARGAR procesados

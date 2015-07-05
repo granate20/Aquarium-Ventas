@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <!--
     Copyright (c) 2012-2014 Adobe Systems Incorporated. All rights reserved.
 
@@ -25,319 +25,259 @@
         <meta name="format-detection" content="telephone=no" />
         <meta name="msapplication-tap-highlight" content="no" />
         <!-- WARNING: for iOS 7, remove the width=device-width and height=device-height attributes. See https://issues.apache.org/jira/browse/CB-4323 -->
-        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
+        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1" />
         <link rel="stylesheet" type="text/css" href="css/index.css" />
         
         <link rel="stylesheet" href="css/jquery.mobile-1.4.5.min.css"> 
         <script src="js/jquery-1.10.2.min.js"></script> 
         <script src="js/jquery.mobile-1.4.5.min.js"></script>
+        <script src="js/index.js"></script>
+        <script type="text/javascript">
+            app.initialize();	
+        </script>
+       
+        
         
         <title>Ventas Aquarium</title>
-        <style>
-        #abre_panel{ 
-	  position: absolute; 
-	  background-image: url(img/menu_btn.png); 
-	  background-repeat: no-repeat; 
-	  width: 50px; 
-	  height: 20px; 
-	  box-shadow: none; 
-	  background-color: transparent !important; 
-	  border: none; 
-	  left: -5px; 
-	  top: 0; 
-	  margin-top: 6px !important; 
-	} 
-        </style>
 
-    </head>
-    <body>
-        <div class="app">
+</head>
+<body>
+
+<div class="app">
             <h1>Aquarium</h1>
             <div id="deviceready" class="blink">
-                <p class="event listening">Connectando</p>
-                <p class="event received">Conectado</p>
+                <p class="event listening">Cargando</p>
+                <p class="event received">Listo!</p>
             </div>
         </div>
-        
-        <script type="text/javascript" src="cordova.js"></script>
-        <script type="text/javascript" src="js/index.js"></script>
-        <script type="text/javascript">
-            app.initialize();
-        </script>
-        
-        <div data-role="page" id="inicio">
- 
-	<div data-role="header">
-		<h1>Autenticacion de Usuario</h1>
-	</div>
-    
-	<div data-role="content">	
-    	
-		<form id="formulario" method="post" >
-      
-      			<label> Usuario </label>
-      			<input type="text" style="height:70px;font-size:20px" id="nombredeusuario" name="nombredeusuario">
-      
-      			<label> Password </label>
-     			<input type="password" style="height:70px; font-size:20px"  id="clave" name="clave" >
- 
-      			<button type="submit" style="height:80px; width:20%; font-size:30px" id="botonLogin"><span class="ui-btn-inner ui-btn-corner-all"><span class="ui-btn-text">Login</span></span></button>
-	
-      
-    		</form>		
-	</div>
-    
-    
-    
-     <script>
-	
-	
-	
-    $('#formulario').submit(function() { 
-        
-         
-        // recolecta los valores que inserto el usuario
-        var datosUsuario = $("#nombredeusuario").val()
-        var datosPassword = $("#clave").val()
-        
 
-    
-		$.ajax({ 
-			url:'http://mxxiv.com.ar/aqm/login.php?jsoncallback=?', 
-			type:'GET',
-			data:{usuario:datosUsuario,password:datosPassword}, 
-			dataType:'json', 
-			error:function(jqXHR,text_status,strError){ 
-			alert("Sin Conexión");}, 
-			timeout:60000, 
-			success:function(data){ 
 
-	
-					if(data.validacion == "ok"){
-				  
-					/// si la validacion es correcta, muestra la pantalla "home"
-					$.mobile.changePage("#home");
-					
-					usuario=data;
-					
-					connect();
-				  
-				}else{
-				  
-				  alert("Usuario o contraseña erroneo.");
-				  $.mobile.changePage("#inicio");
-				}
-	
-				} 
-			});
-	
+<!-- PAGINA INICIO -->
 
-    })
+<div data-role="page" id="inicio">
 
-        
-    </script>
-	 
-    </div>
-    
-    
-    
-    
-    
-    
-    
-     
-    <div data-role="page" id="home">
-    
-      <div data-role="header" class="header" data-position="fixed"> 
-        <h1><div class="ui-input-btn ui-btn ui-btn-inline">
-                Agregar Cliente
-                <input type="button" onClick="agregarcliente();" data-enhanced="true" value="Enhanced">
-            </div>
-        </h1> 
-            
-        <a href="#panel" id="abre_panel" class="panel-btn"></a> 
-      </div> 
-       
-      <div data-role="panel" id="panel" data-position-fixed="true" data-position="left" data-display="overlay"> 
-        <ul data-role="listview"> 
-          <li data-icon="false"><a href="#" onClick="$.mobile.changePage('#home'); connect();" class="panel_li"  >Agenda</a></li> 
-          <li data-icon="false"><a href="#" onClick="$.mobile.changePage('#pendientes');" class="panel_li"  >Pedidos Pendientes</a></li> 
-          <li data-icon="false"><a href="#" onClick="$.mobile.changePage('#terminados');" class="panel_li"  >Pedidos Terminados</a></li> 
-          <li data-icon="false"><a href="#" onClick="cerrarsesion();" class="panel_li"  >Cerrar Sesion</a></li> 
+<div data-role="header">
+<h1>Autenticacion de Usuario</h1>
+</div>
 
-        </ul> 
-      </div> 
-    
-      <div data-role="content"> 
-               
-                
-       	
-        
-                <form><input id="filter-for-listview" data-type="search" placeholder="Buscar">
-                </form>
-                <ul data-role="listview" data-inset="true" id="result" data-inset="true" data-filter="true" data-input="#filter-for-listview">
-                
-                </ul>
+<div data-role="content">
 
-         
-        </div>
-      </div> 
+<div id="login">
+<form action="#" id="formulario" method="post">
 
-       
-        
-        
-  
-    </div>
-    
-    
-    
-    
-    
-    
-    
-    
-     <div data-role="page" id="cliente">
-    
-   
-    
-      <div data-role="content"> 
+<label> Usuario </label>
+<input type="text" style="height:70px;font-size:20px" id="nombredeusuario" name="nombredeusuario">
 
+<label> Password </label>
+<input type="password" id="clave" name="clave">
+
+<button class="show-page-loading-msg" type="submit" id="botonLogin"><span class="ui-btn-inner ui-btn-corner-all"><span class="ui-btn-text">Login</span></span>
+</button>
+
+
+</form>
+</div>
+<div id="contenidoAjax">
+
+</div>
+</div>
+
+
+
+<script>
+$( document ).ready(function() {
+	if (localStorage.getItem('pk_usuario')!= null) 
+{
+
+			//aca va cuando ya tiene la sesion iniciada
+			if(localStorage.getItem('seccion')!=null)
+			{
+				cargar=localStorage.getItem('seccion');
+				localStorage.setItem('seccion','nueva');
 				
-                <form id="formcliente" method="post">
-                        <label> Usuario </label>
-                        <input type="text" style="height:70px;font-size:20px" id="usuario" name="usuario">
-              
-                        <label> Password </label>
-                        <input type="password" style="height:70px; font-size:20px"  id="password" name="password" >
-                        
-                        <label> Nombre </label>                        
-                        <input type="text" style="height:70px;font-size:20px" id="nombre" name="nombre">
-              
-                        <label> Email </label>
-                        <input type="email" style="height:70px; font-size:20px"  id="email" name="email" >
-                        
-                        <label> Telefono </label>
-                        <input type="text" style="height:70px;font-size:20px" id="telefono" name="telefono">
-              
-						<input type="hidden" name="vendedor" id="vendedor">
-                        
-                        <button type="submit" style="height:80px; width:20%; font-size:30px" id="botonLogin"><span class="ui-btn-inner ui-btn-corner-all"><span class="ui-btn-text">Login</span></span></button>
-            
-                </form>
-                
-                
-                     <script>
-	
-	
-	
-    $('#formcliente').submit(function() { 
-        
-         
-        // recolecta los valores que inserto el usuario
+				if(cargar=="agenda") cargarAgenda();
+				if(cargar=="pendientes") cargarPendientes();
+				if(cargar=="procesados") cargarProcesados();
+			}
+			else
+			$.mobile.changePage("#home");
+			
+			
+}
+});
 
 
-    
-		$.ajax({ 
-			url:'http://mxxiv.com.ar/aqm/mayorista/addcliente.php?jsoncallback=?', 
-			type:'GET',
-			data:$(this).serialize(), 
-			dataType:'json', 
-			error:function(jqXHR,text_status,strError){ 
-			alert("Sin Conexión");}, 
-			timeout:60000, 
-			success:function(data){ 
+$('#formulario').submit(function() {
 
-	
-					if(data == "ok"){
-				  
-				  	alert("USUARIO AGREGADO CORRECTAMENTE");
-					/// si la validacion es correcta, muestra la pantalla "home"
-					$.mobile.changePage("#home");
-					
-					connect();
-				  
-				}else{
-				  
-				  alert("USUARIO YA EXITENTE, ELIGA OTRO NOMBRE DE USUARIO");
-				}
-	
-				} 
-			});
-	
 
-    })
 
-        
-    </script>
-            
+// recolecta los valores que inserto el usuario
+var datosUsuario = $("#nombredeusuario").val()
+var datosPassword = $("#clave").val()
 
-         
+
+//el if lleva hayinternet()
+if (hayInternet()) {
+$.ajax({
+url: 'http://aquarium.com.ar/agencias/login.php?jsoncallback=?',
+type: 'GET',
+data: {
+usuario: datosUsuario,
+password: datosPassword
+},
+dataType: 'json',
+error: function(jqXHR, text_status, strError) {
+alert("Sin Conexión");
+
+    $.mobile.loading( "hide" );
+},
+timeout: 60000,
+success: function(data) {
+
+
+if (data.validacion == "ok") {
+
+usuario = data;
+
+localStorage.setItem("username", data.usuario);
+localStorage.setItem("pk_usuario", data.pk_usuario);
+$.mobile.changePage("#home");
+
+} else {
+
+$('#contenidoAjax').html('<center><h3>Password o usuario erróneo</h3></center>');
+$.mobile.changePage("#inicio");
+	 $('#inicio').trigger("create");
+}
+
+
+    $.mobile.loading( "hide" );
+
+}
+});
+} else alert("Necesita estar conectado a internet para loguearse.");
+
+
+})
+</script>
+
+
+</div>
+
+
+<!-- FIN PAGINA INICIO-->
+
+
+
+<!-- PAGINA 2 -->
+<div data-role="page" class="jqm-demos" id="home" data-title="Aquarium" data-url="panel-fixed-page1">
+    <div data-role="header" data-position="fixed">
+        <h1>Aquarium Ventas</h1>
+        <a href="#nav-panel" data-icon="bars" data-iconpos="notext">Menu</a>
+    </div><!-- /header -->
+    <div role="main" class="ui-content jqm-content jqm-fullwidth">
+        <h1>Bienvenido al Sistema de Ventas</h1>
+
+        
+    </div><!-- /content -->
+
+    <div data-role="panel" data-position-fixed="true" data-display="push" data-theme="b" id="nav-panel">
+        <ul data-role="listview">
+                <li><a  onClick="cargarAgenda();">Agenda</a></li>
+                <li><a  onClick="cargarPendientes();">Pedidos Pendientes</a></li>
+                <li><a  onClick="cargarProcesados();">Pedidos Procesados</a></li>
+        </ul>
+    </div><!-- /panel -->
+    
+</div>
+<!-- -->
+
+
+<!-- AGENDA -->
+<div data-role="page" class="jqm-demos" id="agenda" data-title="Aquarium" data-url="panel-fixed-page1">
+    <div data-role="header" data-position="fixed">
+        <h1>Agenda</h1>
+        <a href="#nav-panel" data-icon="bars" data-iconpos="notext">Menu</a>
+    </div><!-- /header -->
+    <div role="main" class="ui-content jqm-content jqm-fullwidth">
+       
+		<ul data-role="listview" id="contenidoagenda" data-autodividers="true" data-filter="true" data-inset="true">
+            
+        </ul>
+        
+    </div><!-- /content -->
+
+	<div data-role="panel" data-position-fixed="true" data-display="push" data-theme="b" id="nav-panel">
+        <ul data-role="listview">
+                <li><a  onClick="cargarAgenda();">Agenda</a></li>
+                <li><a  onClick="cargarPendientes();">Pedidos Pendientes</a></li>
+                <li><a  onClick="cargarProcesados();">Pedidos Procesados</a></li>
+        </ul>
+    </div><!-- /panel -->
+
+    
+</div>
+<!-- fin agenda -->
+
+
+
+
+<!-- PENDIENTES -->
+<div data-role="page" class="jqm-demos" id="pendientes" data-title="Aquarium" data-url="panel-fixed-page1">
+    <div data-role="header" data-position="fixed">
+        <h1>Pendientes</h1>
+        <a href="#nav-panel" data-icon="bars" data-iconpos="notext">Menu</a>
+    </div><!-- /header -->
+    <div role="main" class="ui-content jqm-content jqm-fullwidth">
+       <br><br>
+		 <div class="ui-grid-c ui-responsive" id="contenidopendientes">
         </div>
-      </div> 
+        
+    </div><!-- /content -->
 
-       
-        
-        
-  
-    </div>
-    
-    
-    
-    
-    
-    
-    <div data-role="page" id="pendientes">
-    
-      <div data-role="header" class="header" data-position="fixed"> 
-        <h1>PEDIDOS PENDIENTES</h1> 
-            
-        <a href="#panel" id="abre_panel" class="panel-btn"></a> 
-      </div> 
-       
-      <div data-role="panel" id="panel" data-position-fixed="true" data-position="left" data-display="overlay"> 
-        <ul data-role="listview"> 
-          <li data-icon="false"><a href="#" onClick="$.mobile.changePage('#home'); connect();" class="panel_li"  >Agenda</a></li> 
-          <li data-icon="false"><a href="#" onClick="$.mobile.changePage('#pendientes');" class="panel_li"  >Pedidos Pendientes</a></li> 
-          <li data-icon="false"><a href="#" onClick="$.mobile.changePage('#terminados');" class="panel_li"  >Pedidos Terminados</a></li> 
-          <li data-icon="false"><a href="#" onClick="cerrarsesion();" class="panel_li"  >Cerrar Sesion</a></li> 
+	<div data-role="panel" data-position-fixed="true" data-display="push" data-theme="b" id="nav-panel">
+        <ul data-role="listview">
+                <li><a  onClick="cargarAgenda();">Agenda</a></li>
+                <li><a  onClick="cargarPendientes();">Pedidos Pendientes</a></li>
+                <li><a  onClick="cargarProcesados();">Pedidos Procesados</a></li>
+        </ul>
+    </div><!-- /panel -->
 
-        </ul> 
-      </div> 
-    
-      <div data-role="content"> 
-               
-                
-       	
-        
+    
+</div>
+<!-- fin pendientes -->
 
-                                    
-                    <div data-role="collapsibleset" id="pendientes" data-theme="a" data-inset="false" data-filter="true" data-input="#filter-for-listview">
-                        <div data-role="collapsible">
-                        <h2>Mailbox</h2>
-                            <ul data-role="listview">
-                                <li><a href="index.html">Inbox <span class="ui-li-count">12</span></a></li>
-                                <li><a href="index.html">Outbox <span class="ui-li-count">0</span></a></li>
-                                <li><a href="index.html">Drafts <span class="ui-li-count">4</span></a></li>
-                                <li><a href="index.html">Sent <span class="ui-li-count">328</span></a></li>
-                                <li><a href="index.html">Trash <span class="ui-li-count">62</span></a></li>
-                            </ul>
-                        </div>
-                    </div>                
 
-         
+
+<!-- PROCESADOS -->
+<div data-role="page" class="jqm-demos" id="procesados" data-title="Aquarium" data-url="panel-fixed-page1">
+    <div data-role="header" data-position="fixed">
+        <h1>Proesados</h1>
+        <a href="#nav-panel" data-icon="bars" data-iconpos="notext">Menu</a>
+    </div><!-- /header -->
+    <div role="main" class="ui-content jqm-content jqm-fullwidth">
+       <br><br>
+		 <div class="ui-grid-d ui-responsive" id="contenidoprocesados">
         </div>
-      </div> 
+        
+    </div><!-- /content -->
 
-       
-        
-        
-  
-    </div>
-    
-    
-    
-     
-   
-        
-    </body>
+	<div data-role="panel" data-position-fixed="true" data-display="push" data-theme="b" id="nav-panel">
+        <ul data-role="listview">
+                <li><a  onClick="cargarAgenda();">Agenda</a></li>
+                <li><a  onClick="cargarPendientes();">Pedidos Pendientes</a></li>
+                <li><a  onClick="cargarProcesados();">Pedidos Procesados</a></li>
+        </ul>
+    </div><!-- /panel -->
+
+    
+</div>
+<!-- PROCESADOS -->
+
+
+
+
+
+      
+</body>
 </html>
