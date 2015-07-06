@@ -137,7 +137,6 @@ usuario = data;
 
 localStorage.setItem("username", data.usuario);
 localStorage.setItem("pk_usuario", data.pk_usuario);
-alert("Bienvenido");
 $.mobile.changePage("#home");
 
 } else {
@@ -228,9 +227,10 @@ $.mobile.changePage("#inicio");
     </div><!-- /header -->
     <div role="main" class="ui-content jqm-content jqm-fullwidth">
        <br><br>
-		 <div class="ui-grid-c ui-responsive" id="contenidopendientes">
+		 <div class="ui-grid-a ui-responsive" id="contenidopendientes">
         </div>
-        
+        
+        
     </div><!-- /content -->
 
 	<div data-role="panel" data-position-fixed="true" data-display="push" data-theme="b" id="nav-panel3">
@@ -251,12 +251,12 @@ $.mobile.changePage("#inicio");
 <!-- PROCESADOS -->
 <div data-role="page" class="jqm-demos" id="procesados" data-title="Aquarium" data-url="panel-fixed-page1">
     <div data-role="header" data-position="fixed">
-        <h1>Proesados</h1>
+        <h1>Procesados</h1>
         <a href="#nav-panel4" data-icon="bars" data-iconpos="notext">Menu</a>
     </div><!-- /header -->
     <div role="main" class="ui-content jqm-content jqm-fullwidth">
        <br><br>
-		 <div class="ui-grid-d ui-responsive" id="contenidoprocesados">
+		 <div class="ui-grid-a ui-responsive" id="contenidoprocesados">
         </div>
         
     </div><!-- /content -->

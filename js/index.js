@@ -162,7 +162,7 @@ success: function(data) {
 			
 			$('#contenidopendientes').append('<div class="ui-block-a" ><h4>NRO: '+data[i].pk_pedido+'</h4></div>                    <div class="ui-block-b"><h4>Cliente: '+data[i].nombre+'</h4></div>                    <div class="ui-block-d"><h4>Fecha : '+data[i].fecha+'</h4></div>');
 			
-			$('#contenidopendientes').append(' <div class="ui-block-a" ><div class="ui-bar ui-bar-a"><h5>CANTIDAD</h5></div></div>                    <div class="ui-block-b"><div class="ui-bar ui-bar-a"><h5>ITEM</h5></div></div>                    <div class="ui-block-c"><div class="ui-bar ui-bar-a"><h5>$ x U.</h5></div></div>                    <div class="ui-block-d"><div class="ui-bar ui-bar-a"><h5>SUBTOTAL</h5></div></div>');
+			
 			
 			pedido=data[i].pk_pedido;
 			suma=0;
@@ -171,7 +171,7 @@ success: function(data) {
 		
 			suma=suma+(data[i].cantidad*data[i].precio_unidad);
 		
-		$('#contenidopendientes').append(' <div class="ui-block-a" ><div class="ui-bar ui-bar-a"><h5>'+data[i].cantidad+'</h5></div></div>                    <div class="ui-block-b"><div class="ui-bar ui-bar-a"><h5>'+data[i].detalle+'</h5></div></div>                    <div class="ui-block-c"><div class="ui-bar ui-bar-a"><h5>$'+data[i].precio_unidad+' x U.</h5></div></div>                    <div class="ui-block-d"><div class="ui-bar ui-bar-a"><h5>$'+(data[i].cantidad*data[i].precio_unidad)+'</h5></div></div>');
+		$('#contenidopendientes').append(' <div class="ui-block-a" ><div class="ui-bar ui-bar-a"><h5>'+data[i].cantidad+' X '+data[i].detalle+'  ($'+data[i].precio_unidad+' x U.)  $'+(data[i].cantidad*data[i].precio_unidad)+'</h5></div></div>');
 		
 		descripcion=data[i].descripcion;
 		pk_pedido=data[i].pk_pedido;
@@ -292,7 +292,6 @@ success: function(data) {
 			
 			$('#contenidoprocesados').append('<div class="ui-block-a" ><h4>NRO: '+data[i].pk_pedido+'</h4></div>                    <div class="ui-block-b"><h4>Cliente: '+data[i].nombre+'</h4></div>                    <div class="ui-block-d"><h4>Fecha : '+data[i].fecha+'</h4></div>');
 			
-			$('#contenidoprocesados').append(' <div class="ui-block-a" ><div class="ui-bar ui-bar-a"><h5>CANTIDAD</h5></div></div>                    <div class="ui-block-b"><div class="ui-bar ui-bar-a"><h5>ITEM</h5></div></div>                    <div class="ui-block-c"><div class="ui-bar ui-bar-a"><h5>$ x U.</h5></div></div>                    <div class="ui-block-d"><div class="ui-bar ui-bar-a"><h5>SUBTOTAL</h5></div></div>');
 			
 			pedido=data[i].pk_pedido;
 			suma=0;
@@ -301,7 +300,7 @@ success: function(data) {
 		
 			suma=suma+(data[i].cantidad*data[i].precio_unidad);
 		
-		$('#contenidoprocesados').append(' <div class="ui-block-a" ><div class="ui-bar ui-bar-a"><h5>'+data[i].cantidad+'</h5></div></div>                    <div class="ui-block-b"><div class="ui-bar ui-bar-a"><h5>'+data[i].detalle+'</h5></div></div>                    <div class="ui-block-c"><div class="ui-bar ui-bar-a"><h5>$'+data[i].precio_unidad+' x U.</h5></div></div>                    <div class="ui-block-d"><div class="ui-bar ui-bar-a"><h5>$'+(data[i].cantidad*data[i].precio_unidad)+'</h5></div></div>');
+		$('#contenidoprocesados').append(' <div class="ui-block-a" ><div class="ui-bar ui-bar-a"><h5>'+data[i].cantidad+' X '+data[i].detalle+'  ($'+data[i].precio_unidad+' x U.)  $'+(data[i].cantidad*data[i].precio_unidad)+'</h5></div></div>');
 		
 		descripcion=data[i].descripcion;
 		pk_pedido=data[i].pk_pedido;
