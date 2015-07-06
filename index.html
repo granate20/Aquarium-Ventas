@@ -116,7 +116,7 @@ var datosPassword = $("#clave").val();
 
 alert("revisa internet");
 //el if lleva hayinternet()
-if (hayInternet()) {
+
 $.ajax({
 url: 'http://aquarium.com.ar/agencias/login.php?jsoncallback=?',
 type: 'GET',
@@ -153,11 +153,10 @@ $.mobile.changePage("#inicio");
 
 }
 });
-} else alert("Necesita estar conectado a internet para loguearse.");
 
-alert("sale");
 
 }
+
 </script>
 
 
