@@ -71,7 +71,7 @@
 <label> Password </label>
 <input type="password" id="clave" name="clave">
 
-<button class="show-page-loading-msg" type="submit" id="botonLogin"><span class="ui-btn-inner ui-btn-corner-all"><span class="ui-btn-text">Login</span></span>
+<button type="submit" id="botonLogin"><span class="ui-btn-inner ui-btn-corner-all"><span class="ui-btn-text">Login</span></span>
 </button>
 
 
@@ -129,7 +129,6 @@ dataType: 'json',
 error: function(jqXHR, text_status, strError) {
 alert("Sin Conexión");
 
-    $.mobile.loading( "hide" );
 },
 timeout: 60000,
 success: function(data) {
@@ -152,7 +151,6 @@ $.mobile.changePage("#inicio");
 }
 
 
-    $.mobile.loading( "hide" );
 
 }
 });
