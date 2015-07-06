@@ -114,8 +114,6 @@ function login() {
 var datosUsuario = $("#nombredeusuario").val();
 var datosPassword = $("#clave").val();
 
-alert("revisa internet");
-//el if lleva hayinternet()
 
 $.ajax({
 url: 'http://aquarium.com.ar/agencias/login.php?jsoncallback=?',
@@ -126,7 +124,7 @@ password: datosPassword
 },
 dataType: 'json',
 error: function(jqXHR, text_status, strError) {
-alert("Sin Conexión");
+alert("No hay Conexión");
 
 },
 timeout: 60000,

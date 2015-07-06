@@ -50,37 +50,7 @@ var app = {
     }
 };
 
- function hayInternet() { 
- 
- 
-var networkState; 
 
-if (typeof (navigator.connection) != "undefined") {
-networkState = navigator.connection.type; 
- 
-    var states = {}; 
-    states[Connection.UNKNOWN]  = 'Unknown connection'; 
-    states[Connection.ETHERNET] = 'Ethernet connection'; 
-    states[Connection.WIFI]     = 'WiFi connection'; 
-    states[Connection.CELL_2G]  = 'Cell 2G connection'; 
-    states[Connection.CELL_3G]  = 'Cell 3G connection'; 
-    states[Connection.CELL_4G]  = 'Cell 4G connection'; 
-    states[Connection.CELL]     = 'Cell generic connection'; 
-    states[Connection.NONE]     = 'No network connection'; 
-	
-	if(states[networkState]=='No network connection')
-	return false;
-	
-	return true;
-	
-
-}
-
-	//solo para los navegadores (prueba)
-	return true;
-	
-
-} //FIN FUNCION INTERNET
 
 //FUNCION DE CARGADO
 $( document ).on( "click", ".show-page-loading-msg", function() {
@@ -108,7 +78,6 @@ function cargarAgenda()
 	
 if(localStorage.getItem("seccion")!="agenda")
 {
-if (hayInternet()) {
 $.ajax({
 url: 'http://aquarium.com.ar/agencias/reply.php?jsoncallback=?',
 type: 'GET',
@@ -117,7 +86,7 @@ pk_usuario: localStorage.getItem("pk_usuario")
 },
 dataType: 'json',
 error: function(jqXHR, text_status, strError) {
-alert("Sin Conexión");
+alert("No hay internet.");
 
     $.mobile.loading( "hide" );
 },
@@ -143,7 +112,7 @@ localStorage.setItem('seccion',"agenda");
 
 }
 });
-} else alert("No hay conexión de internet.");
+
 
 }
 
@@ -158,7 +127,6 @@ function cargarPendientes()
 	
 if(localStorage.getItem("seccion")!="pendientes")
 {
-if (hayInternet()) {
 $.ajax({
 url: 'http://aquarium.com.ar/agencias/replypedidos.php?jsoncallback=?',
 type: 'GET',
@@ -168,7 +136,7 @@ estado:1
 },
 dataType: 'json',
 error: function(jqXHR, text_status, strError) {
-alert("Sin Conexión");
+alert("No hay Conexión");
 
     $.mobile.loading( "hide" );
 },
@@ -228,7 +196,6 @@ localStorage.setItem('seccion',"pendientes");
 
 }
 });
-} else alert("No hay conexión de internet.");
 
 }
 
@@ -241,8 +208,6 @@ localStorage.setItem('seccion',"pendientes");
 function cambiarestado(pedido,estado)
 {
 
-//el if lleva hayinternet()
-if (hayInternet()) {
 $.ajax({
 url: 'http://aquarium.com.ar/agencias/replyestado.php?jsoncallback=?',
 type: 'GET',
@@ -252,7 +217,7 @@ estado: estado
 },
 dataType: 'json',
 error: function(jqXHR, text_status, strError) {
-alert("Sin Conexión");
+alert("No hay Conexión");
 },
 timeout: 60000,
 success: function(data) {
@@ -274,7 +239,6 @@ if (data.validacion == "ok") {
 
 }
 });
-} else alert("Necesita estar conectado a internet para loguearse.");
 
 
 
@@ -292,7 +256,6 @@ function cargarProcesados()
 	
 if(localStorage.getItem("seccion")!="procesados")
 {
-if (hayInternet()) {
 $.ajax({
 url: 'http://aquarium.com.ar/agencias/replypedidos.php?jsoncallback=?',
 type: 'GET',
@@ -302,7 +265,7 @@ estado:2
 },
 dataType: 'json',
 error: function(jqXHR, text_status, strError) {
-alert("Sin Conexión");
+alert("No hay Conexión");
 
     $.mobile.loading( "hide" );
 },
@@ -363,7 +326,6 @@ localStorage.setItem('seccion',"procesados");
 
 }
 });
-} else alert("No hay conexión de internet.");
 
 }
 
