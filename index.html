@@ -110,7 +110,7 @@ $( document ).ready(function() {
 function login() {
 
 
-
+alert("ingresa función");
 // recolecta los valores que inserto el usuario
 var datosUsuario = $("#nombredeusuario").val()
 var datosPassword = $("#clave").val()
@@ -118,6 +118,7 @@ var datosPassword = $("#clave").val()
 
 //el if lleva hayinternet()
 if (hayInternet()) {
+	alert("hay internet");
 $.ajax({
 url: 'http://aquarium.com.ar/agencias/login.php?jsoncallback=?',
 type: 'GET',
