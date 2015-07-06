@@ -71,7 +71,7 @@
 <label> Password </label>
 <input type="password" id="clave" name="clave">
 
-<button type="submit" id="botonLogin"><span class="ui-btn-inner ui-btn-corner-all"><span class="ui-btn-text">Login</span></span>
+<button onClick="login();" id="botonLogin"><span class="ui-btn-inner ui-btn-corner-all"><span class="ui-btn-text">Login</span></span>
 </button>
 
 
@@ -107,7 +107,7 @@ $( document ).ready(function() {
 });
 
 
-$('#formulario').submit(function() {
+function login() {
 
 
 
@@ -157,7 +157,7 @@ $.mobile.changePage("#inicio");
 } else alert("Necesita estar conectado a internet para loguearse.");
 
 
-})
+}
 </script>
 
 
@@ -172,7 +172,7 @@ $.mobile.changePage("#inicio");
 <div data-role="page" class="jqm-demos" id="home" data-title="Aquarium" data-url="panel-fixed-page1">
     <div data-role="header" data-position="fixed">
         <h1>Aquarium Ventas</h1>
-        <a href="#nav-panel" data-icon="bars" data-iconpos="notext">Menu</a>
+        <a href="#nav-panel1" data-icon="bars" data-iconpos="notext">Menu</a>
     </div><!-- /header -->
     <div role="main" class="ui-content jqm-content jqm-fullwidth">
         <h1>Bienvenido al Sistema de Ventas</h1>
@@ -180,7 +180,7 @@ $.mobile.changePage("#inicio");
         
     </div><!-- /content -->
 
-    <div data-role="panel" data-position-fixed="true" data-display="push" data-theme="b" id="nav-panel">
+    <div data-role="panel" data-position-fixed="true" data-display="push" data-theme="b" id="nav-panel1">
         <ul data-role="listview">
                 <li><a  onClick="cargarAgenda();">Agenda</a></li>
                 <li><a  onClick="cargarPendientes();">Pedidos Pendientes</a></li>
@@ -197,7 +197,7 @@ $.mobile.changePage("#inicio");
 <div data-role="page" class="jqm-demos" id="agenda" data-title="Aquarium" data-url="panel-fixed-page1">
     <div data-role="header" data-position="fixed">
         <h1>Agenda</h1>
-        <a href="#nav-panel" data-icon="bars" data-iconpos="notext">Menu</a>
+        <a href="#nav-panel2" data-icon="bars" data-iconpos="notext">Menu</a>
     </div><!-- /header -->
     <div role="main" class="ui-content jqm-content jqm-fullwidth">
        
@@ -207,7 +207,7 @@ $.mobile.changePage("#inicio");
         
     </div><!-- /content -->
 
-	<div data-role="panel" data-position-fixed="true" data-display="push" data-theme="b" id="nav-panel">
+	<div data-role="panel" data-position-fixed="true" data-display="push" data-theme="b" id="nav-panel2">
         <ul data-role="listview">
                 <li><a  onClick="cargarAgenda();">Agenda</a></li>
                 <li><a  onClick="cargarPendientes();">Pedidos Pendientes</a></li>
@@ -227,7 +227,7 @@ $.mobile.changePage("#inicio");
 <div data-role="page" class="jqm-demos" id="pendientes" data-title="Aquarium" data-url="panel-fixed-page1">
     <div data-role="header" data-position="fixed">
         <h1>Pendientes</h1>
-        <a href="#nav-panel" data-icon="bars" data-iconpos="notext">Menu</a>
+        <a href="#nav-panel3" data-icon="bars" data-iconpos="notext">Menu</a>
     </div><!-- /header -->
     <div role="main" class="ui-content jqm-content jqm-fullwidth">
        <br><br>
@@ -236,7 +236,7 @@ $.mobile.changePage("#inicio");
         
     </div><!-- /content -->
 
-	<div data-role="panel" data-position-fixed="true" data-display="push" data-theme="b" id="nav-panel">
+	<div data-role="panel" data-position-fixed="true" data-display="push" data-theme="b" id="nav-panel3">
         <ul data-role="listview">
                 <li><a  onClick="cargarAgenda();">Agenda</a></li>
                 <li><a  onClick="cargarPendientes();">Pedidos Pendientes</a></li>
@@ -255,7 +255,7 @@ $.mobile.changePage("#inicio");
 <div data-role="page" class="jqm-demos" id="procesados" data-title="Aquarium" data-url="panel-fixed-page1">
     <div data-role="header" data-position="fixed">
         <h1>Proesados</h1>
-        <a href="#nav-panel" data-icon="bars" data-iconpos="notext">Menu</a>
+        <a href="#nav-panel4" data-icon="bars" data-iconpos="notext">Menu</a>
     </div><!-- /header -->
     <div role="main" class="ui-content jqm-content jqm-fullwidth">
        <br><br>
@@ -264,7 +264,7 @@ $.mobile.changePage("#inicio");
         
     </div><!-- /content -->
 
-	<div data-role="panel" data-position-fixed="true" data-display="push" data-theme="b" id="nav-panel">
+	<div data-role="panel" data-position-fixed="true" data-display="push" data-theme="b" id="nav-panel4">
         <ul data-role="listview">
                 <li><a  onClick="cargarAgenda();">Agenda</a></li>
                 <li><a  onClick="cargarPendientes();">Pedidos Pendientes</a></li>
