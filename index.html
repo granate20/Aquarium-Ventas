@@ -141,6 +141,7 @@ usuario = data;
 
 localStorage.setItem("username", data.usuario);
 localStorage.setItem("pk_usuario", data.pk_usuario);
+alert("Bienvenido");
 $.mobile.changePage("#home");
 
 } else {
@@ -186,6 +187,7 @@ $.mobile.changePage("#inicio");
                 <li><a  onClick="cargarAgenda();">Agenda</a></li>
                 <li><a  onClick="cargarPendientes();">Pedidos Pendientes</a></li>
                 <li><a  onClick="cargarProcesados();">Pedidos Procesados</a></li>
+				<li><a  onClick="localStorage.clear(); $.mobile.changePage('#inicio');">Cerrar Sesion</a></li>
         </ul>
     </div><!-- /panel -->
     
@@ -212,6 +214,7 @@ $.mobile.changePage("#inicio");
                 <li><a  onClick="cargarAgenda();">Agenda</a></li>
                 <li><a  onClick="cargarPendientes();">Pedidos Pendientes</a></li>
                 <li><a  onClick="cargarProcesados();">Pedidos Procesados</a></li>
+				<li><a  onClick="localStorage.clear(); $.mobile.changePage('#inicio');">Cerrar Sesion</a></li>
         </ul>
     </div><!-- /panel -->
 
@@ -240,6 +243,7 @@ $.mobile.changePage("#inicio");
                 <li><a  onClick="cargarAgenda();">Agenda</a></li>
                 <li><a  onClick="cargarPendientes();">Pedidos Pendientes</a></li>
                 <li><a  onClick="cargarProcesados();">Pedidos Procesados</a></li>
+				<li><a  onClick="localStorage.clear(); $.mobile.changePage('#inicio');">Cerrar Sesion</a></li>
         </ul>
     </div><!-- /panel -->
 
@@ -267,6 +271,7 @@ $.mobile.changePage("#inicio");
                 <li><a  onClick="cargarAgenda();">Agenda</a></li>
                 <li><a  onClick="cargarPendientes();">Pedidos Pendientes</a></li>
                 <li><a  onClick="cargarProcesados();">Pedidos Procesados</a></li>
+				<li><a  onClick="localStorage.clear(); $.mobile.changePage('#inicio');">Cerrar Sesion</a></li>
         </ul>
     </div><!-- /panel -->
 
